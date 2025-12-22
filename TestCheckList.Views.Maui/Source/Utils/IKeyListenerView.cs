@@ -1,22 +1,28 @@
 // 2025-12-16
 
-/// <summary></summary>
-/// <param name="Characters"></param>
-/// <param name="KeyCode"></param>
-/// <param name="ModifierFlags"></param>
-public record struct KeyPressedInfo(string Characters, long KeyCode, long ModifierFlags );
+using Microsoft.Maui;using System;
 
-/// <summary></summary>
-public interface IKeyListenerView {
+///<summary>Interfaz para la gestion de eventos de teclado nativos por plataforma</summary>
+public interface IKeyListenerView {    ///<summary>Evento disparado al detectar una tecla</summary>    Action<KeyPressedInfo>? OnKeyPressed { get; set; }
+    ///<summary>Evento disparado al recibir el foco</summary>    Action? Focusing { get; set; }
+    ///<summary>Evento disparado al perder el foco</summary>    Action? Unfocusing { get; set; }    ///<summary>Solicita el foco al componente nativo</summary>    void Focus();
+    ///<summary>Configura la infraestructura sobre el handler de MAUI</summary>    void SetupHandler(IViewHandler? handler);    
+}
 
-	Action<KeyPressedInfo>? OnKeyPressed {get; set;}
+///<summary>Fabrica estatica para obtener la instancia correcta del listener segun plataforma</summary>
+public static class KeyListenerFactory {
 
-	void SetupHandler(IViewHandler? pageHandler);
-
-	Action? Focusing { get; set; }
-
-	Action? Unfocusing { get; set; }
-
-	void Focus();
+	#region Funciones Externas
+	///<summary>Crea una nueva instancia del listener para la plataforma actual</summary>
+	public static IKeyListenerView Create() {
+#if WINDOWS
+		return new WinKeyListenerView();
+#elif MACCATALYST
+        return new MacKeyListenerView();
+#else
+        throw new PlatformNotSupportedException("Plataforma no soportada para KeyListener");
+#endif
+	}
+	#endregion
 
 }

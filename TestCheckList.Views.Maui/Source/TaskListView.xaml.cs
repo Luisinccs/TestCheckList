@@ -43,10 +43,10 @@ public partial class TaskListView : ContentView {
 				Index = _items.IndexOf(item)
 			};
 			_tasksView.Children.Add(fila);
-			fila.KeyPressed = (keyInfo) => {
-				if (keyInfo.KeyCode == 81)
+			fila.KeyPressed = (key) => {
+				if (key.Key == UniversalKey.ArrowDown)
 					SetFocusedItem(fila.Index + 1);
-				if (keyInfo.KeyCode == 82)
+				if (key.Key == UniversalKey.ArrowUp)
 					SetFocusedItem(fila.Index - 1);
 			};
 		}

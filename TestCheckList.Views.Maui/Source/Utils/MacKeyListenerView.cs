@@ -4,7 +4,7 @@
 using UIKit;
 using Foundation;
 using ObjCRuntime;
-#endif
+
 
 /// <summary></summary>
 public class MacKeyListenerView : UIView, IKeyListenerView {
@@ -83,6 +83,7 @@ public class MacKeyListenerView : UIView, IKeyListenerView {
 	}
 
 }
+#endif
 /*
  public override UIKeyCommand[] KeyCommands {
 		get {

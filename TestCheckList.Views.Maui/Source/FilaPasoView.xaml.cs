@@ -17,9 +17,8 @@ public partial class FilaPasoView : ContentView {
 
 	public FilaPasoView() {
 		InitializeComponent();
-#if MACCATALYST
-		_keyListenerView = new MacKeyListenerView();
-#endif
+
+		_keyListenerView = KeyListenerFactory.Create();
 		Loaded += OnLoaded;
 	}
 
@@ -42,18 +41,19 @@ public partial class FilaPasoView : ContentView {
 	}
 
 	private void OnKeyPressed(KeyPressedInfo keyInfo) {
-		System.Diagnostics.Debug.WriteLine($"Key pressed: {keyInfo.KeyCode}");
-		if (keyInfo.KeyCode == 81 || keyInfo.KeyCode == 82)
+		System.Diagnostics.Debug.WriteLine($"Key pressed: {keyInfo.Key}");
+
+		if (keyInfo.Key == UniversalKey.ArrowDown || (keyInfo.Key == UniversalKey.ArrowUp))
 			KeyPressed?.Invoke(keyInfo);
 		else {
-			switch (keyInfo.KeyCode) {
-				case 9:
+			switch (keyInfo.Key) {
+				case UniversalKey.F:
 					State = TaskState.Failed;
 					break;
-				case 22:
+				case UniversalKey.S:
 					State = TaskState.Success;
 					break;
-				case 7:
+				case UniversalKey.D:
 					State = TaskState.Pending;
 					break;
 				default:
@@ -91,9 +91,9 @@ public partial class FilaPasoView : ContentView {
 		set {
 			_state = value;
 			_checkIcon.Source = _state switch {
-				TaskState.Pending => "check_blank",
-				TaskState.Success => "check_success",
-				TaskState.Failed => "check_failed",
+				TaskState.Pending => "check_blank.png",
+				TaskState.Success => "check_success.png",
+				TaskState.Failed => "check_failed.png",
 				_ => throw new NotImplementedException(),
 			}; 
 		}

@@ -3,8 +3,8 @@ namespace TestCheckList.Views.Maui.Tests;
 
 public class App : Application {
 	public App() {
-		//MainPage = new FilaTaskViewTest();
-		MainPage = new TaskListViewTest();
+		MainPage = new FilaTaskViewTest();
+		//MainPage = new TaskListViewTest();
 	}
 
 }

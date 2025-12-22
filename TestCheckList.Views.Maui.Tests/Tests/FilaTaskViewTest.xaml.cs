@@ -7,7 +7,7 @@ public partial class FilaTaskViewTest : ContentPage {
 
 		Loaded += OnLoaded;
 		_fila0.KeyPressed = (keyInfo) => {
-			if (keyInfo.KeyCode == 81) {
+			if (keyInfo.Key == UniversalKey.ArrowDown) {
 				System.Diagnostics.Debug.WriteLine("Key down pressed on fila 00");
 				_fila1.SetFocus();
 			}
