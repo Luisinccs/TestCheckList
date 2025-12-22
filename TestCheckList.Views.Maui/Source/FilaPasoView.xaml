@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TestCheckList.Views.Maui.FilaPasoView"
+             x:Name="thisView">
+
+    <Border x:Name="_mainBorder" StrokeShape="RoundRectangle 4">
+        <VerticalStackLayout>
+            <Grid ColumnDefinitions="*, Auto" 
+                  Padding="10,0"
+                  HeightRequest="36"                   >
+
+                <Label x:Name="_lblTitulo"
+                    FontSize="24"
+                    TextColor="White"
+                    VerticalOptions="Center" />
+
+                <Image x:Name="_checkIcon" 
+                    Grid.Column="1"
+                    HeightRequest="24"
+                    WidthRequest="24"
+                    Source="check_blank"
+                    VerticalOptions="Center"/>
+            </Grid>
+
+            <Grid x:Name="_frameComentario" 
+                ColumnDefinitions="Auto, *" 
+                IsVisible="False"
+                Padding="0" 
+                VerticalOptions="Start">
+
+                <Label x:Name="_lblComentario"
+                    Text="Comentario"
+                    FontSize="18"
+                    WidthRequest="120"
+                    VerticalTextAlignment="Center"
+                    HorizontalTextAlignment="Center"
+                    BackgroundColor="#444"
+                    TextColor="White"
+                    HeightRequest="36" />
+
+                <Editor x:Name="_txtComentarioEditable"                    
+                    Grid.Column="1"
+                    FontSize="16"
+                    AutoSize="TextChanges"
+                    BackgroundColor="#303030"
+                    TextColor="White"
+                    MinimumHeightRequest="36"
+                    VerticalOptions="Center"
+                    Placeholder="Escriba aquí..."
+                    IsVisible="True" />
+            </Grid>
+        </VerticalStackLayout>
+    </Border>
+</ContentView>

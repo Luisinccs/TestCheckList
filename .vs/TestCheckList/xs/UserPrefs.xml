@@ -1,0 +1,34 @@
+﻿<Properties StartupConfiguration="{40CA1929-4DA1-4775-81A6-B67235EECC3F}|Default">
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workbench>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="TestCheckList" expanded="True">
+            <Node name="TestCheckList.Views.Maui">
+              <Node name="Source">
+                <Node name="Utils" expanded="True" />
+                <Node name="FilaPasoView.xaml" expanded="True" />
+                <Node name="TaskListView.xaml" expanded="True" />
+              </Node>
+            </Node>
+            <Node name="TestCheckList.Views.Maui.Tests">
+              <Node name="Tests" expanded="True">
+                <Node name="FilaTaskViewTest.xaml" expanded="True" />
+              </Node>
+              <Node name="MauiProgram.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <Xamarin.Addins.Core.Project ActiveDebugTarget="MyAppleMacCatalystID" />
+  <MonoDevelop.Ide.ItemProperties.TestCheckList PreferredExecutionTarget="MyAppleMacCatalystID" />
+  <MonoDevelop.Ide.ItemProperties.TestCheckList.Views.Maui.Tests PreferredExecutionTarget="MyAppleMacCatalystID" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+</Properties>

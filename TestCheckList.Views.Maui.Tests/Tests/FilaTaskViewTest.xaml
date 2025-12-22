@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TestCheckList.Views.Maui.Tests.FilaTaskViewTest"
+             xmlns:controls="clr-namespace:TestCheckList.Views.Maui;assembly=TestCheckList.Views.Maui"
+             Title="FilaTaskView">
+    <VerticalStackLayout>
+        
+        <Label 
+            Text="Prueba de las filas"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        
+        <controls:FilaPasoView Titulo="Hola Fila Paso" Index="0" x:Name="_fila0"/>
+        <controls:FilaPasoView Titulo="Hola Fila Paso Fallida" State="Failed" Index="1" x:Name="_fila1"/>
+        <controls:FilaPasoView Titulo="Hola Fila Paso Exitosa" State="Success" Index="2"/>
+
+    </VerticalStackLayout>
+</ContentPage>

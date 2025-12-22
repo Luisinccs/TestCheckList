@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="TestCheckList.Views.MainAppPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:TestCheckList.Converters"
+    xmlns:views="clr-namespace:TestCheckList.Views"
+    xmlns:vm="clr-namespace:TestCheckList.ViewModels"
+    BackgroundColor="#303030">
+
+    <ContentPage.MenuBarItems>
+        <MenuBarItem Text="Actions">
+            <MenuFlyoutItem Command="{Binding MarkSuccessCommand}" Text="Success">
+                <MenuFlyoutItem.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="S" Modifiers="None" />
+                </MenuFlyoutItem.KeyboardAccelerators>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem Command="{Binding MarkFailedCommand}" Text="Failed">
+                <MenuFlyoutItem.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="F" Modifiers="None" />
+                </MenuFlyoutItem.KeyboardAccelerators>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem Command="{Binding MarkPendingCommand}" Text="Pending">
+                <MenuFlyoutItem.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="D" Modifiers="None" />
+                </MenuFlyoutItem.KeyboardAccelerators>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem Command="{Binding MarkEditSuccessCommand}" Text="Edit Success">
+                <MenuFlyoutItem.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="E" Modifiers="None" />
+                </MenuFlyoutItem.KeyboardAccelerators>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem Command="{Binding EnterEditCommand}" Text="Details">
+                <MenuFlyoutItem.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="Enter" Modifiers="None" />
+                </MenuFlyoutItem.KeyboardAccelerators>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem Command="{Binding CancelEditCommand}" Text="Cancel">
+                <!--
+                    Escape is often reserved or hard to bind in accelerators,
+                    but let's try.
+                -->
+                <MenuFlyoutItem.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="Escape" Modifiers="None" />
+                </MenuFlyoutItem.KeyboardAccelerators>
+            </MenuFlyoutItem>
+        </MenuBarItem>
+    </ContentPage.MenuBarItems>
+
+    <ContentPage.Resources>
+        <converters:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto, *">
+        <!--  Header  -->
+        <Grid
+            Padding="10"
+            BackgroundColor="#252526"
+            ColumnDefinitions="Auto, *, Auto, Auto">
+            <ImageButton
+                Command="{Binding OpenFileCommand}"
+                HeightRequest="24"
+                Source="open.svg"
+                WidthRequest="24" />
+            <Label
+                Grid.Column="1"
+                FontAttributes="Bold"
+                HorizontalOptions="Center"
+                Text="{Binding WindowTitle}"
+                TextColor="White"
+                VerticalOptions="Center" />
+            <ImageButton
+                Grid.Column="3"
+                Command="{Binding RestartCommand}"
+                HeightRequest="24"
+                Source="restart.svg"
+                WidthRequest="24" />
+        </Grid>
+
+        <!--  Main Content  -->
+        <Grid Grid.Row="1" BackgroundColor="Transparent">
+            <!--  Drop Area  -->
+            <Grid.GestureRecognizers>
+                <DropGestureRecognizer AllowDrop="True" Drop="OnDrop" />
+            </Grid.GestureRecognizers>
+
+            <!--  Empty State  -->
+            <!--  Empty State  -->
+            <Grid IsVisible="{Binding IsFileLoaded, Converter={StaticResource InvertedBoolConverter}}">
+                <Border
+                    Padding="50"
+                    BackgroundColor="Transparent"
+                    HorizontalOptions="Center"
+                    Stroke="Gray"
+                    StrokeDashArray="4,4"
+                    StrokeThickness="1"
+                    VerticalOptions="Center">
+                    <VerticalStackLayout Spacing="10">
+                        <Label
+                            HorizontalTextAlignment="Center"
+                            Text="Arrastra un archivo .scheck o"
+                            TextColor="Gray" />
+                        <Button
+                            BackgroundColor="#007AFF"
+                            Command="{Binding OpenFileCommand}"
+                            HorizontalOptions="Center"
+                            Text="Abrir Archivo"
+                            TextColor="White" />
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <!--  Task List  -->
+            <CollectionView
+                BackgroundColor="#1E1E1E"
+                IsVisible="{Binding IsFileLoaded}"
+                ItemsSource="{Binding TaskList.Rows}"
+                SelectedItem="{Binding TaskList.SelectedRow, Mode=TwoWay}"
+                SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <views:FilaTaskView />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </Grid>
+</ContentPage>
