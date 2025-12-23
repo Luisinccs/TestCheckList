@@ -2,24 +2,34 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:TestCheckList.Views.Maui"
-             x:Class="TestCheckList.Views.Maui.TaskListView">
-    <VerticalStackLayout>
+             x:Class="TestCheckList.Views.Maui.TaskListView"
+             >
+
+    <Grid 
+        BackgroundColor="DarkGreen"
+        RowDefinitions="Auto, *"         
+        >
+
         <Label 
-            Text="Task List View"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+            Grid.Row="0"
+            Text="Prueba de las filas" 
+            HorizontalOptions="Center" 
+            Margin="0,10" />
 
-        <!--<CollectionView x:Name="_tasksView"
-                BackgroundColor="#1E1E1E"
-                IsVisible="True"                
-                SelectionMode="Single">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <views:FilaPasoView />
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>-->
-        <VerticalStackLayout x:Name="_tasksView"/>
-    </VerticalStackLayout>
+        <ScrollView 
+            BackgroundColor="DarkCyan"
+            Grid.Row="1"
+            x:Name="_mainScroll" 
+            HorizontalOptions="Fill"
+            VerticalOptions="Start">
+
+            <VerticalStackLayout 
+                BackgroundColor="Blue"
+                x:Name="_tasksView" 
+                VerticalOptions="Start" />
+
+        </ScrollView>
+
+    </Grid>
+
 </ContentView>
-

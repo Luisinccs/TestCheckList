@@ -9,6 +9,8 @@ using ObjCRuntime;
 /// <summary></summary>
 public class MacKeyListenerView : UIView, IKeyListenerView {
 
+	#region IKeyListenerView Implements
+
 	public Action<KeyPressedInfo>? OnKeyPressed { get; set; }
 
 	public Action? Focusing { get; set; }
@@ -22,13 +24,11 @@ public class MacKeyListenerView : UIView, IKeyListenerView {
 
 	public void SetupHandler(IViewHandler? handler) {
 
-		var platformView = handler?.PlatformView;
-
-		if (platformView is UIView nativeView) {
-			Frame = nativeView.Bounds;
-			AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
-			nativeView.AddSubview(this);
-		} 
+		if (handler?.PlatformView is UIView nativeView) {
+            Frame = nativeView.Bounds;
+            AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
+            nativeView.AddSubview(this);
+        }
 
 	}
 
@@ -36,26 +36,46 @@ public class MacKeyListenerView : UIView, IKeyListenerView {
 		BecomeFirstResponder();
 	}
 
-	public override bool CanBecomeFirstResponder {
-		get {
-			Focusing?.Invoke();
-			return true;
-		}
-	}
+	#endregion
 
-	public override bool CanResignFirstResponder {
-		get {
-			Unfocusing?.Invoke();
-			return true;
-		}
-	}
+	#region UIResponder overrides	
 
-	public override UIView? HitTest(CoreGraphics.CGPoint point, UIEvent? uievent) {
-		// Permite que los clicks pasen a las vistas de abajo
-		return null;
-	}
+	public override bool CanBecomeFirstResponder => true;
 
-	public override void PressesBegan(NSSet<UIPress> presses, UIPressesEvent evt) {
+    public override bool BecomeFirstResponder() {
+        bool result = base.BecomeFirstResponder();
+        if (result) Focusing?.Invoke();
+        return result;
+    }
+
+    public override bool ResignFirstResponder() {
+        bool result = base.ResignFirstResponder();
+        if (result) Unfocusing?.Invoke();
+        return result;
+    }
+
+	///<summary>Captura el evento de teclado de iOS/Mac y lo unifica</summary>
+    public override void PressesBegan(NSSet<UIPress> presses, UIPressesEvent evt) {
+        foreach (UIPress press in presses) {
+            if (press.Key != null) {
+                // Uso de las nuevas extensiones unificadas
+                UniversalKey uKey = press.Key.ToUniversalKey();
+                UniversalModifier uMods = press.Key.ModifierFlags.ToUniversalModifier();
+
+                KeyPressedInfo info = new(press.Key.Characters, uKey, uMods);
+                
+                OnKeyPressed?.Invoke(info);
+            }
+        }
+        // No llamamos a base para evitar que el sistema procese shortcuts por defecto
+    }
+
+	#endregion
+	
+}
+#endif
+/*
+public override void PressesBegan(NSSet<UIPress> presses, UIPressesEvent evt) {
 		bool handled = false;
 
 		foreach (UIPress press in presses) {
@@ -81,10 +101,11 @@ public class MacKeyListenerView : UIView, IKeyListenerView {
 			base.PressesBegan(presses, evt);
 		}
 	}
+	// public override UIView? HitTest(CoreGraphics.CGPoint point, UIEvent? uievent) {
+	// 	// Permite que los clicks pasen a las vistas de abajo
+	// 	return null;
+	// }
 
-}
-#endif
-/*
  public override UIKeyCommand[] KeyCommands {
 		get {
 			// Claim shortcuts to prevent system Menu Bar from stealing them

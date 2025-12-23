@@ -7,6 +7,8 @@ namespace TestCheckList.Views.Maui;
 
 public partial class TaskListView : ContentView {
 
+	#region Variables
+
 	private int _selectedIndex = -1;
 
 	private readonly ObservableCollection<TaskItemDto> _items = new() {
@@ -18,12 +20,23 @@ public partial class TaskListView : ContentView {
 		new(5, "Tarea 6", Models.TaskState.Pending)
 	};
 
+	#endregion
+
 	public TaskListView() {
+
 		InitializeComponent();
-
 		CargarTareasManual();
+		Loaded += OnViewLoaded;
 
-		this.Loaded += OnViewLoaded;
+	}
+
+	#region Funciones internas
+
+	///<summary>Desplaza el ScrollView para asegurar que el elemento sea visible</summary>
+	private async void AsegurarVisibilidad(VisualElement element) {
+		// Esperamos un breve momento para que el layout se actualice si hubo expansion
+		await Task.Delay(100);
+		await _mainScroll.ScrollToAsync(element, ScrollToPosition.Start, true);
 	}
 
 	///<summary>Establece el foco inicial al cargar la vista</summary>
@@ -70,7 +83,8 @@ public partial class TaskListView : ContentView {
 		var target = (FilaPasoView)_tasksView.Children[_selectedIndex];
 
 		target.SetFocus();
-		
+		AsegurarVisibilidad(target);
 	}
 
+	#endregion
 }

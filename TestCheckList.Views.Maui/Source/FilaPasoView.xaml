@@ -6,10 +6,7 @@
 
     <Border x:Name="_mainBorder" StrokeShape="RoundRectangle 4">
         <VerticalStackLayout>
-            <Grid ColumnDefinitions="*, Auto" 
-                  Padding="10,0"
-                  HeightRequest="36"                   >
-
+            <FlexLayout>
                 <Label x:Name="_lblTitulo"
                     FontSize="24"
                     TextColor="White"
@@ -21,12 +18,12 @@
                     WidthRequest="24"
                     Source="check_blank"
                     VerticalOptions="Center"/>
-            </Grid>
-
-            <Grid x:Name="_frameComentario" 
-                ColumnDefinitions="Auto, *" 
+            </FlexLayout>
+            
+            <FlexLayout x:Name="_frameComentario" 
                 IsVisible="False"
                 Padding="0" 
+                HorizontalOptions="Fill"
                 VerticalOptions="Start">
 
                 <Label x:Name="_lblComentario"
@@ -39,17 +36,17 @@
                     TextColor="White"
                     HeightRequest="36" />
 
-                <Editor x:Name="_txtComentarioEditable"                    
-                    Grid.Column="1"
+                <Editor x:Name="_txtComentario"   
+                    FlexLayout.Grow="1"                 
                     FontSize="16"
                     AutoSize="TextChanges"
                     BackgroundColor="#303030"
                     TextColor="White"
                     MinimumHeightRequest="36"
-                    VerticalOptions="Center"
+                    VerticalOptions="Start"
                     Placeholder="Escriba aquí..."
                     IsVisible="True" />
-            </Grid>
+            </FlexLayout>
         </VerticalStackLayout>
     </Border>
 </ContentView>

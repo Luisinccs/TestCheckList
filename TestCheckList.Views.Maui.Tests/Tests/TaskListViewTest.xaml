@@ -3,15 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TestCheckList.Views.Maui.Tests.TaskListViewTest"
              xmlns:controls="clr-namespace:TestCheckList.Views.Maui;assembly=TestCheckList.Views.Maui"
-             Title="TaskListViewTest">
-    <VerticalStackLayout>
-        <Label 
-            HeightRequest="56"
-            FontSize="36"
-            Text="TaskListViewTest"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+             Title="TaskListViewTest"
+             BackgroundColor="Red">
+    
+    <controls:TaskListView 
+            BackgroundColor="DarkOrchid"
+            VerticalOptions="Start" 
+            HorizontalOptions="Fill" />
+    
 
-        <controls:TaskListView />
-    </VerticalStackLayout>
 </ContentPage>

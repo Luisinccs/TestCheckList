@@ -6,38 +6,63 @@ namespace TestCheckList.Views.Maui;
 
 public partial class FilaPasoView : ContentView {
 
-	public Action<KeyPressedInfo>? KeyPressed { get; set; }
+	#region Variables
 
+	/// <summary>controla si estamos en modo expansión para evitar que otras teclas (como S o F) interfieran mientras el usuario escribe</summary>
+	private bool _isEditing = false;
 	private int _index;
-
 	private IKeyListenerView _keyListenerView;
-
 	private TaskState _state = TaskState.Pending;
 	private string? _titulo = null;
 
-	public FilaPasoView() {
-		InitializeComponent();
+	#endregion
 
-		_keyListenerView = KeyListenerFactory.Create();
-		Loaded += OnLoaded;
+	#region Funciones internas
+
+	///<summary>Controla visualmente el borde segun el estado de la fila</summary>
+	private void ActualizarResaltado(bool enfocado) {
+		System.Diagnostics.Debug.WriteLine($"Actualizando resaltado de la fila {Index}. Enfocado: {enfocado}, Editando: {_isEditing}");
+		// Mantenemos el resalte si estamos editando o si el listener tiene el foco
+		if (enfocado || _isEditing) {
+			_mainBorder.Stroke = Colors.Blue;
+			_mainBorder.StrokeThickness = 4;
+		} else {
+			_mainBorder.Stroke = Colors.Transparent;
+			_mainBorder.StrokeThickness = 1;
+		}
+	}
+
+	///<summary>Expande la seccion de comentario y traslada el foco al editor</summary>
+	private async void AlternarEdicion() {
+		_isEditing = true;
+		_frameComentario.IsVisible = true;
+		ActualizarResaltado(true);
+
+		// Esperamos un frame para que el layout se estabilice
+		await Task.Yield();
+
+		// Enfocamos el editor para empezar a escribir inmediatamente
+		_txtComentario.Focus();
+	}
+
+	private void ConfigurarEditor() {
+		_txtComentario.Completed += (s, e) => {
+			_isEditing = false;
+			// todo: Si tiene texto se mantiene visible, de lo contrario se oculta
+			_frameComentario.IsVisible = false; // O mantenerlo visible si prefieres
+			SetFocus(); // Devolvemos el foco al listener de la fila
+		};
 	}
 
 	private void OnLoaded(object? sender, EventArgs e) {
 		//System.Diagnostics.Debug.WriteLine("Fila Loaded");
 		var handler = Handler;
-		_keyListenerView.SetupHandler(handler);		
-		_keyListenerView.Focusing = () => {
-			System.Diagnostics.Debug.WriteLine($"Fila {Index} focusing");
-			_mainBorder.Stroke = Colors.Blue; // Usando tu color de acento [cite: 2025-12-13]
-			_mainBorder.StrokeThickness = 4;
-		};
-		_keyListenerView.Unfocusing = () => {
-			System.Diagnostics.Debug.WriteLine($"Fila {Index} unfocusing");
-			_mainBorder.Stroke = Colors.Transparent;
-			_mainBorder.StrokeThickness = 1;
-		};
+		_keyListenerView.SetupHandler(handler);
+		_keyListenerView.Focusing = () => ActualizarResaltado(true);
+		_keyListenerView.Unfocusing = () => ActualizarResaltado(_txtComentario.IsFocused);
 		_keyListenerView.OnKeyPressed = (keyInfo) => OnKeyPressed(keyInfo);
-		
+
+		ConfigurarEditor();
 	}
 
 	private void OnKeyPressed(KeyPressedInfo keyInfo) {
@@ -56,10 +81,31 @@ public partial class FilaPasoView : ContentView {
 				case UniversalKey.D:
 					State = TaskState.Pending;
 					break;
+				case UniversalKey.Enter:
+					AlternarEdicion();
+					break;
 				default:
 					break;
 			}
 		}
+	}
+
+
+	#endregion
+
+	#region Funciones observables
+
+	public Action<KeyPressedInfo>? KeyPressed { get; set; }
+
+	public FilaPasoView() {
+		InitializeComponent();
+
+		_keyListenerView = KeyListenerFactory.Create();
+
+		// El editor debe notificar cuando gana/pierde foco para mantener el borde
+		_txtComentario.Focused += (s, e) => ActualizarResaltado(true);
+		_txtComentario.Unfocused += (s, e) => ActualizarResaltado(false);
+		Loaded += OnLoaded;
 	}
 
 	public void SetFocus() {
@@ -75,7 +121,7 @@ public partial class FilaPasoView : ContentView {
 			? Color.FromArgb("#333333") // Gris oscuro [cite: 2025-12-13]
 			: Color.FromArgb("#444444");
 		}
-	}	
+	}
 
 	public string? Titulo {
 		get => _titulo;
@@ -95,8 +141,10 @@ public partial class FilaPasoView : ContentView {
 				TaskState.Success => "check_success.png",
 				TaskState.Failed => "check_failed.png",
 				_ => throw new NotImplementedException(),
-			}; 
+			};
 		}
 	}
-	
+
+	#endregion
+
 }
