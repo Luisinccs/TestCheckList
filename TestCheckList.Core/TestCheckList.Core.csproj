@@ -13,9 +13,6 @@
     <None Remove="Source\Models\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Source\" />
-    <Folder Include="Source\ViewModels\" />
-    <Folder Include="Source\ViewModels\Interfaces\" />
     <Folder Include="Source\Models\" />
   </ItemGroup>
 </Project>

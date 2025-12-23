@@ -1,7 +1,7 @@
 
 using System.Collections.ObjectModel;
-using TestCheckList.ViewModels;
 using Microsoft.Maui.Devices;
+using TestCheckList.Core.Source.ViewModels.Interfaces;
 
 namespace TestCheckList.Views.Maui;
 
@@ -11,24 +11,27 @@ public partial class TaskListView : ContentView {
 
 	private int _selectedIndex = -1;
 
-	private readonly ObservableCollection<TaskItemDto> _items = new() {
-		new(0, "Tarea 1", Models.TaskState.Pending),
-		new(1, "Tarea 2", Models.TaskState.Pending),
-		new(2, "Tarea 3", Models.TaskState.Pending),
-		new(3, "Tarea 4", Models.TaskState.Pending),
-		new(4, "Tarea 5", Models.TaskState.Pending),
-		new(5, "Tarea 6", Models.TaskState.Pending)
-	};
+	private ITaskListViewModel? _viewModel;
 
 	#endregion
+
+	#region Funciones públicas
 
 	public TaskListView() {
 
 		InitializeComponent();
-		CargarTareasManual();
-		Loaded += OnViewLoaded;
-
+		
+		
+		RenderizarFilas();
+		Loaded += (s, e) => SetFocusedItem(0);
 	}
+
+	public void SetViewModel(ITaskListViewModel viewModel) {
+		_viewModel = viewModel;
+		_viewModel.Initialize();
+	}
+
+	#endregion
 
 	#region Funciones internas
 
@@ -39,14 +42,38 @@ public partial class TaskListView : ContentView {
 		await _mainScroll.ScrollToAsync(element, ScrollToPosition.Start, true);
 	}
 
-	///<summary>Establece el foco inicial al cargar la vista</summary>
-	private void OnViewLoaded(object? sender, EventArgs e) {
-		if (_tasksView.Children.Count > 0) {
-			SetFocusedItem(0);
+	private void RenderizarFilas() {
+		_tasksView.Children.Clear();
+		if (_viewModel is null) return;
+
+		foreach (var rowVm in _viewModel.Rows) {
+			FilaPasoView fila = new();
+			fila.SetViewModel(rowVm);
+
+			fila.KeyPressed = (key) => {
+				if (key.Key == UniversalKey.ArrowDown) SetFocusedItem(rowVm.Index + 1);
+				if (key.Key == UniversalKey.ArrowUp) SetFocusedItem(rowVm.Index - 1);
+			};
+
+			_tasksView.Children.Add(fila);
 		}
 	}
 
-	private void CargarTareasManual() {
+	///<summary>Mueve el foco visual y lógico a una fila específica</summary>
+	private void SetFocusedItem(int index) {
+		if (index < 0 || index >= _tasksView.Children.Count) return;
+
+		_selectedIndex = index;
+		var target = (FilaPasoView)_tasksView.Children[_selectedIndex];
+		target.SetFocus();
+		AsegurarVisibilidad(target);
+	}
+
+	#endregion
+
+}
+/*
+ * private void CargarTareasManual() {
 		_tasksView.Children.Clear();
 
 		foreach (var item in _items) {
@@ -65,8 +92,7 @@ public partial class TaskListView : ContentView {
 		}
 	}
 
-	///<summary>Mueve el foco visual y lógico a una fila específica</summary>
-	private void SetFocusedItem(int index) {
+ * private void SetFocusedItem(int index) {
 		if (index < 0 || index >= _tasksView.Children.Count) {
 #if MACCATALYST
 			AudioToolbox.SystemSound.Vibrate.PlaySystemSound();
@@ -85,6 +111,12 @@ public partial class TaskListView : ContentView {
 		target.SetFocus();
 		AsegurarVisibilidad(target);
 	}
-
-	#endregion
-}
+ * private readonly ObservableCollection<TaskItemDto> _items = new() {
+		new(0, "Tarea 1", Models.TaskState.Pending),
+		new(1, "Tarea 2", Models.TaskState.Pending),
+		new(2, "Tarea 3", Models.TaskState.Pending),
+		new(3, "Tarea 4", Models.TaskState.Pending),
+		new(4, "Tarea 5", Models.TaskState.Pending),
+		new(5, "Tarea 6", Models.TaskState.Pending)
+	};
+ */

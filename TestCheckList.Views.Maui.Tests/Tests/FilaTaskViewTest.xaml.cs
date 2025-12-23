@@ -6,18 +6,18 @@ public partial class FilaTaskViewTest : ContentPage {
 		InitializeComponent();
 
 		Loaded += OnLoaded;
-		_fila0.KeyPressed = (keyInfo) => {
-			if (keyInfo.Key == UniversalKey.ArrowDown) {
-				System.Diagnostics.Debug.WriteLine("Key down pressed on fila 00");
-				_fila1.SetFocus();
-			}
-		};
+		//_fila0.KeyPressed = (keyInfo) => {
+		//	if (keyInfo.Key == UniversalKey.ArrowDown) {
+		//		System.Diagnostics.Debug.WriteLine("Key down pressed on fila 00");
+		//		_fila1.SetFocus();
+		//	}
+		//};
 
 	}
 
 	private void OnLoaded(object? sender, EventArgs e) {
 		//System.Diagnostics.Debug.WriteLine("FilaTaskViewTest Loaded");
-		_fila0.SetFocus();
+		//_fila0.SetFocus();
 	}
 
 }

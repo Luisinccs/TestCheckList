@@ -1,4 +1,5 @@
 // 2025-12-22
+#if MACCATALYST
 using TestCheckList.Models;
 using UIKit;
 
@@ -6,7 +7,7 @@ using UIKit;
 ///<summary>Extensiones para mapear modificadores de UIKit a la enumeracion universal</summary>
 public static class UIKeyModifierFlagsExtensions {
 
-    #region Funciones Externas
+	#region Funciones Externas
     ///<summary>Convierte banderas de modificadores de iOS/Mac a UniversalModifier</summary>
     public static UniversalModifier ToUniversalModifier(this UIKeyModifierFlags flags) {
         UniversalModifier modifiers = UniversalModifier.None;
@@ -18,6 +19,7 @@ public static class UIKeyModifierFlagsExtensions {
 
         return modifiers;
     }
-    #endregion
+	#endregion
 
 }
+#endif

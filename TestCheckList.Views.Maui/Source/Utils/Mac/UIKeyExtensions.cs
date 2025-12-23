@@ -1,11 +1,11 @@
 // 2025-12-22
-
+#if MACCATALYST
 using UIKit;
 
 ///<summary>Extensiones para mapear teclas de UIKit al catalogo UniversalKey</summary>
 public static class UIKeyExtensions {
 
-    #region Funciones Externas
+	#region Funciones Externas
     ///<summary>Mapea un objeto UIKey de Mac a UniversalKey usando codigos HID</summary>
     public static UniversalKey ToUniversalKey(this UIKey key) => (long)key.KeyCode switch {
         // Letras (HID 4-29)
@@ -75,6 +75,7 @@ public static class UIKeyExtensions {
 
         _ => UniversalKey.None
     };
-    #endregion
+	#endregion
 
 }
+#endif
