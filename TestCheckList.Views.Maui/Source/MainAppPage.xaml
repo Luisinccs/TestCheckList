@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:TestCheckList.Views.Maui"
@@ -9,37 +9,61 @@
 
     <Grid RowDefinitions="Auto, *">
 
-        <Grid Grid.Row="0" 
-              ColumnDefinitions="*, Auto" 
-              Padding="20,10" 
-              BackgroundColor="#333333">
+        <Grid 
+            Grid.Row="0" 
+            ColumnDefinitions="*, Auto, Auto" 
+            Padding="20,10" 
+            BackgroundColor="#333333">
 
-            <Label Text="Mis Tareas" 
-                   VerticalOptions="Center" 
-                   TextColor="White" 
-                   FontSize="20" 
-                   FontAttributes="Bold" />
+            <Label 
+                Text="Mis Tareas" 
+                VerticalOptions="Center" 
+                TextColor="White" 
+                FontSize="20" 
+                FontAttributes="Bold" />
 
-            <Button x:Name="_btnOpen"
-                    Grid.Column="1"
-                    ImageSource="open.png"
-                    BackgroundColor="#457b9d"
-                    CornerRadius="4"
-                    WidthRequest="44"
-                    HeightRequest="44"
-                    Padding="10" />
+            <HorizontalStackLayout 
+                x:Name="_lytSavingIndicator" 
+                Grid.Column="1" 
+                VerticalOptions="Center" 
+                Spacing="8" 
+                Margin="0,0,15,0"
+                Opacity="0">
+
+                <Label 
+                    Text="Guardando..." 
+                    TextColor="#457b9d" 
+                    VerticalOptions="Center" 
+                    FontSize="12" />
+                
+                <ActivityIndicator 
+                    IsRunning="True" 
+                    Color="#457b9d" 
+                    WidthRequest="16" 
+                    HeightRequest="16" />
+
+            </HorizontalStackLayout>
+
+            <Button 
+                x:Name="_btnOpen" 
+                Grid.Column="2" 
+                ImageSource="open.png" 
+                BackgroundColor="#457b9d" 
+                WidthRequest="44" />
         </Grid>
 
-        <controls:TaskListView x:Name="_taskListView" 
-                               Grid.Row="1" 
-                               IsVisible="False" />
+        <controls:TaskListView 
+            x:Name="_taskListView" 
+            Grid.Row="1" 
+            IsVisible="False" />
 
-        <Label x:Name="_lblEmptyState"
-               Grid.Row="1"
-               Text="Presione el icono de abrir para cargar un archivo"
-               HorizontalOptions="Center"
-               VerticalOptions="Center"
-               TextColor="#333333" />
+        <Label 
+            x:Name="_lblEmptyState"
+            Grid.Row="1"
+            Text="Presione el icono de abrir para cargar un archivo"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            TextColor="#333333" />
 
     </Grid>
 </ContentPage>

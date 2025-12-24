@@ -1,17 +1,13 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestCheckList.Core", "TestCheckList.Core\TestCheckList.Core.csproj", "{53E129D2-96B2-451F-A771-645C5A13A84A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCheckList.MacXamarin", "TestCheckList.MacXamarin\TestCheckList.MacXamarin.csproj", "{D080BB1C-60E5-4BD1-BE9E-7202BAF6476D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestCheckList.Views.Maui", "TestCheckList.Views.Maui\TestCheckList.Views.Maui.csproj", "{7B105347-487C-48F0-8C58-2AB6B61B172A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestCheckList.Views.Maui.Tests", "TestCheckList.Views.Maui.Tests\TestCheckList.Views.Maui.Tests.csproj", "{40CA1929-4DA1-4775-81A6-B67235EECC3F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCheckList.Core", "Core\TestCheckList.Core.csproj", "{F08ABD9A-0C69-496E-9FD9-E3FBEDF9BB03}"
 EndProject
 Global
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {19142E82-4AA0-49D0-83CE-00431B8FB71C}
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -20,25 +16,13 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{40CA1929-4DA1-4775-81A6-B67235EECC3F}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{53E129D2-96B2-451F-A771-645C5A13A84A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{53E129D2-96B2-451F-A771-645C5A13A84A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{53E129D2-96B2-451F-A771-645C5A13A84A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{53E129D2-96B2-451F-A771-645C5A13A84A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7B105347-487C-48F0-8C58-2AB6B61B172A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B105347-487C-48F0-8C58-2AB6B61B172A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B105347-487C-48F0-8C58-2AB6B61B172A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B105347-487C-48F0-8C58-2AB6B61B172A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{40CA1929-4DA1-4775-81A6-B67235EECC3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{40CA1929-4DA1-4775-81A6-B67235EECC3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{40CA1929-4DA1-4775-81A6-B67235EECC3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{40CA1929-4DA1-4775-81A6-B67235EECC3F}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-EndGlobal
-
-		{40CA1929-4DA1-4775-81A6-B67235EECC3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{40CA1929-4DA1-4775-81A6-B67235EECC3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{40CA1929-4DA1-4775-81A6-B67235EECC3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{40CA1929-4DA1-4775-81A6-B67235EECC3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D080BB1C-60E5-4BD1-BE9E-7202BAF6476D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D080BB1C-60E5-4BD1-BE9E-7202BAF6476D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D080BB1C-60E5-4BD1-BE9E-7202BAF6476D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D080BB1C-60E5-4BD1-BE9E-7202BAF6476D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F08ABD9A-0C69-496E-9FD9-E3FBEDF9BB03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F08ABD9A-0C69-496E-9FD9-E3FBEDF9BB03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F08ABD9A-0C69-496E-9FD9-E3FBEDF9BB03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F08ABD9A-0C69-496E-9FD9-E3FBEDF9BB03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

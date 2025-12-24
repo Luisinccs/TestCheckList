@@ -1,18 +1,20 @@
-﻿<Properties StartupConfiguration="{40CA1929-4DA1-4775-81A6-B67235EECC3F}|Default">
+﻿<Properties StartupConfiguration="{D080BB1C-60E5-4BD1-BE9E-7202BAF6476D}|Default">
+  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="TestCheckList" expanded="True">
-            <Node name="TestCheckList.Views.Maui">
-              <Node name="Source" expanded="True">
-                <Node name="FilaPasoView.xaml" expanded="True" />
-                <Node name="TaskListView.xaml" expanded="True" selected="True" />
+            <Node name="TestCheckList.Core">
+              <Node name="Source">
+                <Node name="ViewModels">
+                  <Node name="Implementaciones" expanded="True" />
+                </Node>
               </Node>
             </Node>
-            <Node name="TestCheckList.Views.Maui.Tests">
-              <Node name="Tests">
-                <Node name="TaskListViewTest.xaml" expanded="True" />
+            <Node name="TestCheckList.MacXamarin">
+              <Node name="Source" expanded="True">
+                <Node name="MainViewController.cs" selected="True" />
               </Node>
             </Node>
           </Node>
@@ -20,13 +22,12 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.ItemProperties.TestCheckList.Views.Maui.Tests PreferredExecutionTarget="MyAppleMacCatalystID" />
-  <MonoDevelop.Ide.ItemProperties.TestCheckList PreferredExecutionTarget="MyAppleMacCatalystID" />
-  <Xamarin.Addins.Core.Project ActiveDebugTarget="MyAppleMacCatalystID" />
-  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.TestCheckList.MacXamarin PreferredExecutionTarget="MyMacID" />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <Xamarin.Addins.Core.Project ActiveDebugTarget="MyAppleMacCatalystID" />
+  <MonoDevelop.Ide.ItemProperties.TestCheckList PreferredExecutionTarget="MyAppleMacCatalystID" />
 </Properties>

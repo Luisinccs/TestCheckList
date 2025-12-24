@@ -1,10 +1,12 @@
 
-using Microsoft.Maui.Handlers;
+
+using TestCheckList.ViewModels;
+
+#if WINDWS
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using TestCheckList.Models;
-using TestCheckList.ViewModels;
 using Windows.System;
+#endif
 
 namespace TestCheckList.Views.Maui;
 
@@ -149,7 +151,13 @@ public partial class FilaPasoView : ContentView {
 
 		// El editor debe notificar cuando gana/pierde foco para mantener el borde
 		_txtComentario.Focused += (s, e) => ActualizarResaltado(true);
-		_txtComentario.Unfocused += (s, e) => ActualizarResaltado(false);
+		// Al perder el foco, enviamos el texto al ViewModel
+		_txtComentario.Unfocused += (s, e) => {
+			if (_viewModel != null) {
+				_viewModel.Comentario = _txtComentario.Text;
+			}
+			ActualizarResaltado(false);
+		};
 		Loaded += OnLoaded;
 	}
 
@@ -168,62 +176,3 @@ public partial class FilaPasoView : ContentView {
 	#endregion
 
 }
-	/*
- * //private TaskState _state = TaskState.Pending;
-	//private string? _titulo = null;
- * //private int _index;
- * 
-
-	
-
-	
-
-	
-
-	private void OnKeyPressed(KeyPressedInfo keyInfo) {
-		System.Diagnostics.Debug.WriteLine($"Key pressed: {keyInfo.Key}");
-
-		if (keyInfo.Key == UniversalKey.ArrowDown || (keyInfo.Key == UniversalKey.ArrowUp))
-			KeyPressed?.Invoke(keyInfo);
-		else {
-			switch (keyInfo.Key) {
-				case UniversalKey.F:
-					State = TaskState.Failed;
-					break;
-				case UniversalKey.S:
-					State = TaskState.Success;
-					break;
-				case UniversalKey.D:
-					State = TaskState.Pending;
-					break;
-				case UniversalKey.Enter:
-					AlternarEdicion();
-					break;
-				default:
-					break;
-			}
-		}
-	}
- * public string? Titulo {
-		get => _titulo;
-		set {
-			_titulo = value;
-			_lblTitulo.Text = _titulo;
-		}
-	}
-
-	///<summary></summary>
-	public TaskState State {
-		get => _state;
-		set {
-			_state = value;
-			_checkIcon.Source = _state switch {
-				TaskState.Pending => "check_blank.png",
-				TaskState.Success => "check_success.png",
-				TaskState.Failed => "check_failed.png",
-				_ => throw new NotImplementedException(),
-			};
-		}
-	}
-
- */

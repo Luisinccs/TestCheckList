@@ -23,13 +23,16 @@
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-maccatalyst|AnyCPU'">
 		<CreatePackage>false</CreatePackage>
 	</PropertyGroup>
+	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">
+		<CodeSigningEntitlements>Platforms\MacCatalyst\Entitlements.plist</CodeSigningEntitlements>
+	</PropertyGroup>
 	<ItemGroup>
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
 		<MauiImage Include="Resources\Images\*" />
 		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
 		<MauiFont Include="Resources\Fonts\*" />
-		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />		
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
@@ -47,24 +50,24 @@
 			<Visible>true</Visible>
 		</MauiImage>
 		<MauiImage Update="..\SharedResources\Images\check_blank.svg">
-		  <Link>Resources\Images\check_blank.svg</Link>
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</MauiImage>		
+			<Link>Resources\Images\check_blank.svg</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</MauiImage>
 		<MauiImage Update="..\SharedResources\Images\check_failed.svg">
-		  <Link>Resources\Images\check_failed.svg</Link>
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</MauiImage>		
+			<Link>Resources\Images\check_failed.svg</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</MauiImage>
 		<MauiImage Update="..\SharedResources\Images\check_success.svg">
-		  <Link>Resources\Images\check_success.svg</Link>
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Link>Resources\Images\check_success.svg</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="..\SharedResources\Images\open.svg">
-		  <Link>Resources\Images\open.svg</Link>
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Link>Resources\Images\open.svg</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="..\SharedResources\Images\restart.svg">
-		  <Link>Resources\Images\restart.svg</Link>
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</MauiImage>		
+			<Link>Resources\Images\restart.svg</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</MauiImage>
 	</ItemGroup>
 </Project>
